@@ -1,11 +1,11 @@
 import React from 'react';
 import Logo from '../../Components/Logo';
-import { NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router';
 
 const Navber = () => {
     const links = <>
     <li><NavLink to=''>Services</NavLink></li>
-    <li><NavLink to=''>Coverage</NavLink></li>
+    <li><NavLink to='/coverage'>Coverage</NavLink></li>
     <li><NavLink to=''>About Us</NavLink></li>
     </>
     return (
@@ -23,7 +23,7 @@ const Navber = () => {
        }
       </ul>
     </div>
-    <a className="ml-2"><Logo></Logo></a>
+    <Link to='/' className="ml-2"><Logo></Logo></Link>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">
