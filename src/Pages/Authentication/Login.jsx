@@ -1,8 +1,13 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../Hooks/useAuth';
+import SocialLogin from './SocialLogin';
+import { useLocation, useNavigate } from 'react-router';
 
 const Login = () => {
+
+  const location = useLocation();
+  const navigate = useNavigate();
 
 const {signInUserEmailPassword}=useAuth();
     const handelLogin=(data)=>{
@@ -10,6 +15,7 @@ const {signInUserEmailPassword}=useAuth();
         signInUserEmailPassword(data.email,data.password)
         .then(userData =>{
             console.log(userData);
+            navigate(location.state || '/');
         })
         .catch(error =>{
             console.log(error);
@@ -46,6 +52,7 @@ const {signInUserEmailPassword}=useAuth();
           <button className="btn btn-neutral mt-4">Login</button>
         </fieldset>
       </form>
+      <SocialLogin></SocialLogin>
     </div>
        </div>
     );
