@@ -8,6 +8,9 @@ import Register from "../Pages/Authentication/Register";
 import PrivateRouts from "./PrivateRouts";
 import Raider from "../Pages/Raider/Raider";
 import SendPercel from "../Pages/Parcel/SendPercel";
+import DashBord from "../Layouts/DashBord";
+import MyParcels from "../Pages/DashBoard/MyParcels";
+import Payment from "../Pages/DashBoard/Payment";
 
 export const router = createBrowserRouter([
   {
@@ -56,4 +59,18 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path:'/dashBord',
+    element:<PrivateRouts><DashBord></DashBord></PrivateRouts>,
+    children:[
+        {
+            path:'my-parcels',
+            Component:MyParcels
+        },
+        {
+            path:'payment/:id',
+            Component:Payment
+        }
+    ]
+  }
 ]);

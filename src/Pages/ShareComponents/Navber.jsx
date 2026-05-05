@@ -21,7 +21,11 @@ const Navber = () => {
     <li><NavLink to=''>Services</NavLink></li>
     <li><NavLink to='/coverage'>Coverage</NavLink></li>
     <li><NavLink to='/send-parcel'>Send Parcel</NavLink></li>
+    {
+      user && <li><NavLink to='/dashBord/my-parcels'>My-Parcels</NavLink></li>
+    }
     <li><NavLink to=''>About Us</NavLink></li>
+
     </>
     return (
         <div className="navbar bg-base-100 shadow-sm">
