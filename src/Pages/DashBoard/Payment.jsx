@@ -19,9 +19,24 @@ const Payment = () => {
     if(isLoading){
         return  <span className="loading loading-bars loading-md"></span>
     }
+
+    const handelPayButton =async()=>{
+        const paymentInfo ={
+            cost : parcel.cost,
+            parcelName:parcel.parcelName,
+            parcelId:parcel.parcelId,
+            senderEmail:parcel.senderEmail
+        }
+
+        const res = await axiosSecure.post('/create-checkout-session',paymentInfo);
+        window.location.href=res.data.url;
+        console.log(res.data);
+    }
+
     return (
         <div>
-            please pay for : {parcel.parcelName}
+            please pay for : {parcel.parcelName} and your payable amount is ${parcel.cost}
+            <button onClick={handelPayButton} className='text-black btn btn-sm bg-green-500'>pay</button>
         </div>
     );
 };  
