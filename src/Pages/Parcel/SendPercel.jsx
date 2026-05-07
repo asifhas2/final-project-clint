@@ -1,13 +1,14 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useAuth from "../../Hooks/useAuth";
 
 const SendPercel = () => {
-    const {user}=useAuth();
-    // console.log(user);
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  // console.log(user);
   const {
     register,
     handleSubmit,
@@ -23,38 +24,41 @@ const SendPercel = () => {
     const isDocuments = data.type === "document";
     const isSameDistrict = data.senderDistrict === data.reciverDistrict;
     let weight = Number(data.weight);
-      console.log(weight);
+    console.log(weight);
     let cost = 0;
     if (isDocuments) {
       cost = isSameDistrict ? 60 : 80;
     } else {
-        if(weight <=3){
-            cost = isSameDistrict?110 : 150 ;
-
-        }
-        else{
-            let overCost = (weight - 3)*40;
-           cost = isSameDistrict ? (110 + overCost) : (150 + overCost + 40);
-
-        }
+      if (weight <= 3) {
+        cost = isSameDistrict ? 110 : 150;
+      } else {
+        let overCost = (weight - 3) * 40;
+        cost = isSameDistrict ? 110 + overCost : 150 + overCost + 40;
+      }
     }
     data.cost = cost;
     Swal.fire({
-  title: "Are you agree with our cost?",
-  text:` your final cost is ${cost} taka !`,
-  icon: "warning",
-  showCancelButton: true,
-  confirmButtonColor: "#3085d6",
-  cancelButtonColor: "#d33",
-  confirmButtonText: "Yes, agree with you!"
-}).then((result) => {
-  if (result.isConfirmed){
-    axiosSecure.post('/parcels',data)
-    .then(res =>{
-        console.log("after saving data from database :", res.data);
-    })
-  }
-});
+      title: "Are you agree with our cost?",
+      text: ` your final cost is ${cost} taka !`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, agree with you!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.post("/parcels", data).then((res) => {
+          if (res.data.insertedId) {
+              navigate('/dashBord/my-parcels');
+            Swal.fire({
+              title: "Drag me!",
+              icon: "success",
+              draggable: true,
+            });
+          }
+        });
+      }
+    });
     console.log(cost);
   };
 
@@ -105,7 +109,6 @@ const SendPercel = () => {
             type="text"
             placeholder="Parcel Name"
             {...register("parcelName")}
-           
             className="input input-bordered w-full"
           />
 
@@ -126,7 +129,7 @@ const SendPercel = () => {
             <input
               type="text"
               placeholder="Sender Name"
-               defaultValue={user.displayName}
+              defaultValue={user.displayName}
               {...register("senderName")}
               className="input input-bordered w-full mb-3"
             />
@@ -134,7 +137,7 @@ const SendPercel = () => {
               type="email"
               placeholder="Sender email"
               {...register("senderEmail")}
-                   defaultValue={user.email}
+              defaultValue={user.email}
               className="input input-bordered w-full mb-3"
             />
 

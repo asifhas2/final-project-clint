@@ -24,7 +24,7 @@ const Payment = () => {
         const paymentInfo ={
             cost : parcel.cost,
             parcelName:parcel.parcelName,
-            parcelId:parcel.parcelId,
+            parcelId:parcel._id,
             senderEmail:parcel.senderEmail
         }
 

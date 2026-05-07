@@ -13,6 +13,7 @@ import MyParcels from "../Pages/DashBoard/MyParcels";
 import Payment from "../Pages/DashBoard/Payment";
 import PaymentSuccessful from "../Pages/DashBoard/PaymentSuccessful";
 import PaymentCanceled from "../Pages/DashBoard/PaymentCanceled";
+import PaymentHistory from "../Pages/DashBoard/PaymentHistory";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,7 @@ export const router = createBrowserRouter([
             <Raider></Raider>
           </PrivateRouts>
         ),
+         loader: () => fetch("/warehouses.json"),
       },
       {
         path: "/send-parcel",
@@ -81,7 +83,12 @@ export const router = createBrowserRouter([
         {
           path:'payment-canceled',
           Component:PaymentCanceled
-        }
+        },
+        {
+          path:'payments-history',
+          Component:PaymentHistory
+        },
+
     ]
   }
 ]);

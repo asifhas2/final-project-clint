@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../Hooks/useAuth';
 import SocialLogin from './SocialLogin';
-import { useLocation, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 
 const Login = () => {
 
@@ -50,6 +50,7 @@ const {signInUserEmailPassword}=useAuth();
           }
           <div><a className="link link-hover">Forgot password?</a></div>
           <button className="btn btn-neutral mt-4">Login</button>
+          <p>Do not have an account?<Link to='/register'> <span className='text-blue-400 underline'>register</span></Link></p>
         </fieldset>
       </form>
       <SocialLogin></SocialLogin>
